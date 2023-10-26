@@ -1,0 +1,37 @@
+Pegar cores
+var cor_name = d3.scale.category20()
+
+Criar uma escala ordinal
+#(ex: .domain(dic.map(function(entry){return entry.key})).rangeBands([0, width])
+var escale_name = d3.scale.ordinal()
+                    .domain(list_valores) 
+                    .rangeBands([inicio, fim]) 
+
+Criar uma escala linear
+#(ex: .domain([0, d3.max(dic, function(d){return d.value})]).range([height, 0])
+var escale_name = d3.scale.linear()
+                    .domain([min, max]) 
+                    .range([inicio, fim]) 
+
+Criando eixo x de um gráfico
+#(ex: .scale(escale_name).orient("bottom"|"left"|"right"))
+var eixo_x = d3.svg.axis()
+                   .scale(some_scale)
+                   .orient("orientation") 
+
+Criando o eixo y de um gráfico
+#(ex: .scale(escale_name).tickSize(-width,0,0).tickFormat("").orient(""))
+var eixo_y = d3.svg.axis()
+                   .scale(some_scale)
+                   .tickSize()
+                   .tickFormat("")
+                   .orient("orientation")
+
+Criando um objeto SVG
+(ex: .select("body").append("svg").attr("id","chart").attr("width",w).attr("height",h))
+var svg = d3.select("tag_name").append("svg")
+            .attr("attr", "name")
+            .attr("width", width_value)
+            .attr("height", height_value)
+            
+

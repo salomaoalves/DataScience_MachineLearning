@@ -1,0 +1,8 @@
+{% extends "index.html" %}
+{% block info %}
+<section id="err">
+    <h1>{{ err }}</h1>
+    <h3>{{ err_description }}</h3>
+    <a href={{ go_back }}> Try Again! </a>    
+</section>
+{% endblock %}

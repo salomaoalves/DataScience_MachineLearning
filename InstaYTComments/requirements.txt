@@ -1,0 +1,11 @@
+chromedriver-binary==89.0.4389.23
+favicon==0.7.0
+Flask==1.0.2
+Gunicorn==20.0.4
+Nltk==3.6.4
+Numpy==1.15.4
+Pandas==1.1.5
+Selenium==3.141.0
+Spacy==2.3.2
+Unidecode==1.1.1
+Werkzeug==0.15.3

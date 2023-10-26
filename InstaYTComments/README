@@ -1,0 +1,6 @@
+This project performs web scraping of youtube video comments and Instagram posts and accepts file uploads.
+After collecting the data, the software will create 4 products:
+     1) Frequency - a graph over ngrams using d3, but d3.csv didn't read the local files, needs to be updated at this point
+     2) Wordcloud - create a wordcloud using the texts
+     3) Token Info - a table with all tokens and some more information like apparition number, TF, IDF and TF_IDF
+     4) Sentiment analysis - do a sentiment analysis in the comments, it's not the best version, it needs some update

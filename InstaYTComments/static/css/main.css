@@ -1,0 +1,122 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: "Arial", sans-serif;
+	font-size: 0.95em;
+	background-color: #e9e3ce;
+}
+
+header {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+    font-size: 25pt;
+    color: balck;
+    background-color: #fbfbf8;
+}
+
+nav {
+	background-color: #696969;
+    text-align: center;
+    padding-top: 20px;
+    font-size: 13pt;
+    height: 40px;
+    margin: 0;
+}
+
+#form {
+	margin-top: 20px;
+	padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+	border: 1px dotted black;
+	background-color: #faebd7;
+}
+
+#err {
+	padding-left: 40px;
+    padding-right: 40px;
+    margin-left: 100px;
+    margin-right: 100px;
+	border: 1px dotted black;
+	background-color: white;
+	text-align: center;
+    font-size: 25pt;
+    color: #ff0000;
+}
+
+.botao_nav {
+	border: none;
+}
+
+.img {
+	border: 1px solid black;
+	border-radius: 10px;
+	margin-top: 50px;
+	margin-left: 350px;
+	width: 50%;
+}
+
+.table {
+	border: 1px double black;
+	margin-top: 10px;
+	margin-left: 350px;
+	width: 50%;
+	text-align: center;
+	background-color: white;
+}
+
+.row {
+	padding-left: 40px;
+	padding-right: 40px;
+    font-size: 10pt;
+}
+
+.col {
+	background-color: #a0a0a0;
+	height: 40px;
+	vertical-align: middle;
+}
+
+.obs {
+	background-color: #666;
+}
+
+#filters {
+	padding-left: 40px;
+    padding-right: 40px;
+    margin-left: 200px;
+	margin-right: 700px;
+	text-align: center;
+	border: 1px solid black;
+	background-color: white;
+    font-size: 10pt;
+}
+
+#chart{
+	text-align: center;
+	background-color: #F5F2EB;
+	border: 1px solid #CCC;
+}
+.bar{
+	fill: #007BA7;
+	shape-rendering: crispEdges;
+}
+.bar-label{
+	fill: #000;
+	text-anchor: middle;
+	font-size: 18px;
+}
+.axis path,
+.axis line{
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+.gridline path,
+.gridline line{
+	fill: none;
+	stroke: #ccc;
+	shape-rendering: crispEdges;
+}

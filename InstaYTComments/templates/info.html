@@ -1,0 +1,71 @@
+{% extends "index.html" %}
+{% block info %}
+
+<nav>
+    <button class="botao_nav" id="freq_nav" autofocus>Frequency</button> |
+    <button class="botao_nav" id="wordcloud_nav">Wordcloud</button> |
+    <button class="botao_nav" id="tfidf_nav">Token Info</button> |
+    <button class="botao_nav" id="sentiment_nav">Sentiment Analysis</button>
+</nav>
+
+<div id="freq" style="display: block;">
+
+    <!--colocar o grafico num modal, so aparece se clicar no botao (os filtros aparecem junto ao lado)
+    colocar a all_gram junto com o botao q da acesso ao modal-->
+        Ola
+    <button type="button" id="btn_graphic">Show Graphic</button>
+    <main id="modalTeste" class="modal">
+        
+        
+    </main>
+</div>
+
+<div id="wordcloud" style="display: none;">
+    <img class="img" src={{wordcloud_path}}>
+</div>
+
+<div id="tfidf" style="display: none;">
+    <table class="table">
+        <tbody>
+            <tr class="row">
+                {% for key in tf_idf -%}
+                {% if key != 'obs' and key != 'size'-%}
+                <td class="col">{{key}}</td>
+                {% endif %}
+                {% endfor %}
+            </tr>
+            
+            {% for i in tf_idf['size'] -%}
+            <tr>
+                <td class="col">{{tf_idf['Token'][i]}}</td>
+                <td class="col">{{tf_idf['Comment'][i]}}</td>
+                <td class="col">{{tf_idf['Numb of that token'][i]}}</td>
+                <td class="col">{{tf_idf['Numb of all tokens'][i]}}</td>
+                <td class="col">{{tf_idf['TF'][i]}}</td>
+                <td class="col">{{tf_idf['IDF'][i]}}</td>
+                <td class="col">{{tf_idf['TF_IDF'][i]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <h7 style="color: red;">{{tf_idf['obs']}}</h7>
+    </table>
+</div>
+
+<div id="sentiment" style="display: none;">
+    <table class="table">
+        <tbody>
+            <tr class="row">
+                <td class="col">Comment</td>
+                <td class="col">Score</td>
+            </tr>
+            {% for info in sentiment -%}
+            <tr>
+                <td class="col">{{info['Comment']}}</td>
+                <td class="col">{{info['Score']}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
