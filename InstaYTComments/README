@@ -1,6 +1,65 @@
-This project performs web scraping of youtube video comments and Instagram posts and accepts file uploads.
+This project will create a Flask App to read words and apply NLP methods. To get the words there is two options, (1) by passing a url from a Insta post or a Youtube video, or (2) via static text, like a default one already stored or you can upload a txt file.
+
 After collecting the data, the software will create 4 products:
-     1) Frequency - a graph over ngrams using d3, but d3.csv didn't read the local files, needs to be updated at this point
-     2) Wordcloud - create a wordcloud using the texts
-     3) Token Info - a table with all tokens and some more information like apparition number, TF, IDF and TF_IDF
-     4) Sentiment analysis - do a sentiment analysis in the comments, it's not the best version, it needs some update
+ - 1. Frequency - a graph over ngrams using d3, but d3.csv didn't read the local files, needs to be updated at this point
+ - 2. Wordcloud - create a wordcloud using the texts
+ - 3. Token Info - a table with all tokens and some more information like apparition number, TF, IDF and TF_IDF
+ - 4. Sentiment analysis - do a sentiment analysis in the comments, it's not the best version, it needs some update
+
+The NLP methods and the Sentiment Analysis is apply by using Python language, see **services** folder for more explanation.
+
+
+## media_files
+Folder contain the txt files that can be used as source data. The **default.txt** file is the default one used to test the application - the one already stored. It is a short sample of the *Lorem Ipsum* text.
+
+## services
+Folder contain the python code responsible to scrap the data, treat it and apply some NLP methods (tokenization, n-gram, TF-IDF, Wordcloud) - also a sentiment analysis is done.
+
+Inside folder **data** has some data used during sentiment analysis.
+
+*ngram.py* is a python file with functions to build the ngrams. First, tokenizes all the data, than, a unagram, a bigram, a trigram and a mix of the three. Use **NLTK** to create the bi and trigram and to help during tokenization. Save all 4 grams in **../static/dataset** folder.
+
+*scraping.py* functions to extract/scrape the comments of the url passed - a youtube video or a instagram post. First, create a connection with the help of **Selenium**. Than, create two loops, the first one responsible to load all comments and the second to read and return the comments.
+
+*sent_analysis.py* has functions responsible to create the model (a *BernoulliNB()* from **sklearn**) and train it (use the csv files in **data**). Than, predict using the comments. Some data format operation are made to fit the data in the model and application.
+
+*set_train.py* is a script used to set/organize the data (use the csv files in **data**) that is used to train the model that will make the sentiment analysis.
+
+*tfidf.py* will calculate the TF-IDF values by math formulas. Use **NLTK** lib to create the bags of words.
+
+*wordcloud.py* has the function to create the wordcloud with the comments - use **WordCloud** lib.
+  
+## static
+Folder contain static data - like the CSS files and JS scripts used in html files, a folder for images used during the code and a csv file to store the created n-grams.
+
+## templates
+Folder contain the html file used to show the information - front end part.
+
+*error.html* html of the section when a error happens.
+
+*first.html* html of the form to choose which way the application will get the words.
+
+*index.html* main html, used to most of the pages - there is a block where it'll be customized (where error/first/.html will appear).
+
+*info.html* html to display the NLP information extracted; basically has 4 buttons, by clicking in one of them, some infomartion will appear, that's can be the n-grams, wordcloud, tf-idf or sentiment analysis.
+
+There is a *info_default.html* which is the same as the above, but for only when the default option to get the data is sellected - the difference is that there is no sentimente analysis.
+
+*scraping.html* html of the form to insert the youtube or instagram url, where the comments will be scraped.
+
+*upload.html* html of the form to upload the txt file with the text data.
+
+## Dockerfile
+A docker file to deploy the application.
+
+## NLP.docx 
+A docx file with explanation about some concepts in NLP - text in pt-br.
+
+## POS_tagger_brill.pkl
+A pickle files that load pos_tag in pt-br.
+
+## main.py
+Main script responsible to launch the Flask app and its pages.
+
+## requirements.py
+A txt file with the python libs version required - used in Dockerfile.
