@@ -1,13 +1,21 @@
+import os
 import time
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.chrome.options import Options
 #import chromedriver_binary
+
+def get_driver(options):
+    '''Create the Chrome driver. Use CHROME_BIN/CHROMEDRIVER_PATH env vars if set,
+        otherwise Selenium Manager finds (or downloads) Chrome and chromedriver'''
+    if os.environ.get('CHROME_BIN'):
+        options.binary_location = os.environ['CHROME_BIN']
+    return Chrome(service=Service(os.environ.get('CHROMEDRIVER_PATH')), options=options)
 
 def read_file(path):
     with open(path, 'r') as arq:
@@ -23,7 +31,7 @@ def yt_scrap(url, n):
     options.add_argument('--headless')
     options.add_argument("--mute-audio")
     options.add_argument("--no-sandbox")
-    with Chrome('/home/salomao/Desktop/DSProject/NLP/services/chromedriver', options=options) as driver:
+    with get_driver(options) as driver:
         wait = WebDriverWait(driver,15)
         driver.get(url)
 
@@ -45,17 +53,17 @@ def insta_scrap(url, n):
     options.add_argument('--headless')
     options.add_argument("--mute-audio")
     options.add_argument("--no-sandbox")
-    with Chrome('/home/salomao/Desktop/DSProject/NLP/services/chromedriver', options=options) as driver:
+    with get_driver(options) as driver:
         wait = WebDriverWait(driver,15)
         driver.get(url)
 
         while n>i:
             try:
-                driver.find_element_by_class_name('dCJp8').click()
+                driver.find_element(By.CLASS_NAME, 'dCJp8').click()
             except NoSuchElementException:
                 break
             time.sleep(15)
-            i =+ 1
+            i += 1
 
         for comment in wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "C4VMK"))):
             data.append(comment.text.split('\n')[1])
