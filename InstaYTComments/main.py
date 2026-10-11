@@ -1,6 +1,6 @@
 import os
 import re
-from werkzeug import secure_filename
+from werkzeug.utils import secure_filename
 from flask import Flask, render_template, request, url_for, current_app
 from services.ngram import run as runGRAM
 from services.tfidf import run as runIDF
@@ -113,7 +113,7 @@ def show_upload():
         path = os.path.join(current_app.config['MEDIA_ROOT'], filename)
         file_info.save(path)
     else:
-        return render_template('error.html', logo_url='/static/img/logo.png',err=f'File {filename[:-4]} was not found!!!', 
+        return render_template('error.html', logo_url='/static/img/logo.png',err=f'File was not found!!!', 
                                 err_description='Please check the file again and try again.', go_back=url_for('upload'))
     
     file_path = current_app.config['MEDIA_ROOT']+'/'+filename
@@ -135,7 +135,7 @@ def default():
 
     dic_tf_idf = runIDF(lista_commen,"0")
     dic_tf_idf['size'] = range(len(dic_tf_idf['Token']))
-    runGRAM(lista_commen,lang)
+    runGRAM(lista_commen,"0")
     cloud_path = runWordCloud(lista_commen)
 
     return render_template('info_default.html', logo_url='/static/img/logo.png', 

@@ -1,13 +1,16 @@
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import BernoulliNB
+import os
 import pandas as pd
+
+DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
 
 def get_data(lang):
     '''Get correct train data'''
     if lang=="1":
-        df = pd.read_csv('/home/salomao/Desktop/DSProject/NLP/services/data/train_en.csv')
+        df = pd.read_csv(os.path.join(DATA_DIR, 'train_en.csv'))
     else:
-        df = pd.read_csv('/home/salomao/Desktop/DSProject/NLP/services/data/train_pt.csv')
+        df = pd.read_csv(os.path.join(DATA_DIR, 'train_pt.csv'))
     return [[c,s] for c,s in zip(df['Comment'].to_list(),df['Score'].to_list())]
 
 def start_training(data_train, vetorizador):
@@ -24,7 +27,7 @@ def set_format(lista_commen, pred_scores):
 
 def run(lista_commen, lang):
     train = get_data(lang)
-    vetorizador = CountVectorizer(binary = 'true')
+    vetorizador = CountVectorizer(binary = True)
     model = start_training(train, vetorizador)
     pred = model.predict(vetorizador.transform(lista_commen))
     pred_scores = ['Positive' if score==1 else 'Negative' for score in pred]

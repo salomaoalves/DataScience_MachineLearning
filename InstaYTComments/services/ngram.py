@@ -6,6 +6,10 @@ import re
 import string
 import unidecode
 import math
+import os
+
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+DATASET_DIR = os.path.join(PROJECT_ROOT, "static", "dataset")
 
 # load dic in spacy session
 #!python -m spacy download pt_core_news_sm # for jupyter
@@ -14,7 +18,7 @@ nlp = spacy.load("pt_core_news_sm") # for vscode
 # How to load pos_tag in pt-br -- you should have the file POS_tagger_brill.pkl downloaded 
 # https://github.com/inoueMashuu/POS-tagger-portuguese-nltk/tree/master/trained_POS_taggers
 import joblib
-pos_tag_pt = joblib.load('POS_tagger_brill.pkl')
+pos_tag_pt = joblib.load(os.path.join(PROJECT_ROOT, 'POS_tagger_brill.pkl'))
 
 # list of stopwords
 nltk.download('stopwords')
@@ -42,10 +46,10 @@ def run(commen, lang):
     df_trigram = trigram(new_comen, lang)
     df_all_ngram = all_ngram(df_unagram,df_bigram,df_trigram)
 
-    df_unagram.to_csv("/home/salomao/Desktop/DSProject/NLP/static/dataset/unagram.csv",index=False)
-    df_bigram.to_csv("/home/salomao/Desktop/DSProject/NLP/static/dataset/bigram.csv",index=False)
-    df_trigram.to_csv("/home/salomao/Desktop/DSProject/NLP/static/dataset/trigram.csv",index=False)
-    df_all_ngram.to_csv("/home/salomao/Desktop/DSProject/NLP/static/dataset/allgram.csv",index=False)
+    df_unagram.to_csv(os.path.join(DATASET_DIR, "unagram.csv"),index=False)
+    df_bigram.to_csv(os.path.join(DATASET_DIR, "bigram.csv"),index=False)
+    df_trigram.to_csv(os.path.join(DATASET_DIR, "trigram.csv"),index=False)
+    df_all_ngram.to_csv(os.path.join(DATASET_DIR, "allgram.csv"),index=False)
 
     return
 
@@ -159,5 +163,5 @@ def all_ngram(unagram_df, bigram_df, trigram_df):
     frequency_df = unagram_df.join(bigram_df)
     frequency_df = frequency_df.join(trigram_df)
 
-    frequency_df.fillna(".", inplace=True)
+    frequency_df = frequency_df.astype(object).fillna(".")
     return frequency_df

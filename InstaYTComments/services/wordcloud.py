@@ -37,8 +37,8 @@ def run(documents):
 
     # creat wordcloud
     wordcloud = WordCloud(width = 800, height = 500, random_state=1, background_color='white', collocations=False).generate(token)
-    d = path.dirname(__file__) if "__file__" in locals() else os.getcwd()
-    img_path = f"./static/img/wordcloud{random.randrange(1000)}.png"
-    wordcloud.to_file(path.join(d, img_path))
+    d = path.abspath(path.join(path.dirname(__file__), ".."))
+    img_path = f"/static/img/wordcloud{random.randrange(1000)}.png"
+    wordcloud.to_file(path.join(d, img_path.lstrip("/")))
 
     return img_path
