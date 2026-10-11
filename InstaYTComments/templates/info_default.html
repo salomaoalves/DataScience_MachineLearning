@@ -9,15 +9,25 @@
 </nav>
 
 <div id="freq" style="display: block;">
-
-    <!--colocar o grafico num modal, so aparece se clicar no botao (os filtros aparecem junto ao lado)
-    colocar a all_gram junto com o botao q da acesso ao modal-->
-        Ola
-    <button type="button" id="btn_graphic">Show Graphic</button>
-    <main id="modalTeste" class="modal">
-        
-        
-    </main>
+    <div id="ngram_filters">
+        <span class="filter">
+            <label><input type="radio" name="ngram_type" value="unagram" checked> Unagram</label>
+            <label><input type="radio" name="ngram_type" value="bigram"> Bigram</label>
+            <label><input type="radio" name="ngram_type" value="trigram"> Trigram</label>
+        </span>
+        <span class="filter">
+            <label>Sort:
+                <select id="ngram_sort">
+                    <option value="desc" selected>Most frequent</option>
+                    <option value="asc">Least frequent</option>
+                </select>
+            </label>
+        </span>
+        <span class="filter">
+            <label>Rows: <input type="number" id="ngram_rows" value="15" min="1" max="100"></label>
+        </span>
+    </div>
+    <div id="ngram_chart"></div>
 </div>
 
 <div id="wordcloud" style="display: none;">

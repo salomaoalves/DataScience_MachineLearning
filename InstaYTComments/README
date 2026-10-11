@@ -1,7 +1,7 @@
 This project will create a Flask App to read words and apply NLP methods. To get the words there is two options, (1) by passing a url from a Insta post or a Youtube video, or (2) via static text, like a default one already stored or you can upload a txt file.
 
 After collecting the data, the software will create 4 products:
- - 1. Frequency - a graph over ngrams using d3, but d3.csv didn't read the local files, needs to be updated at this point
+ - 1. Frequency - a bar chart (made with d3) of the most frequent unagrams, bigrams and trigrams, with filters for the n-gram type, sorting and number of rows
  - 2. Wordcloud - create a wordcloud using the texts
  - 3. Token Info - a table with all tokens and some more information like apparition number, TF, IDF and TF_IDF
  - 4. Sentiment analysis - do a sentiment analysis in the comments, it's not the best version, it needs some update

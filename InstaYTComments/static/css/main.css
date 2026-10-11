@@ -83,40 +83,59 @@ nav {
 	background-color: #666;
 }
 
-#filters {
-	padding-left: 40px;
-    padding-right: 40px;
-    margin-left: 200px;
-	margin-right: 700px;
+#ngram_filters {
+	margin: 20px auto 10px auto;
+	padding: 10px 20px;
+	width: 760px;
 	text-align: center;
 	border: 1px solid black;
 	background-color: white;
-    font-size: 10pt;
+	font-size: 11pt;
 }
 
-#chart{
+.filter {
+	margin: 0 15px;
+}
+
+#ngram_chart {
 	text-align: center;
+}
+
+#chart {
 	background-color: #F5F2EB;
 	border: 1px solid #CCC;
 }
-.bar{
+.bar {
 	fill: #007BA7;
 	shape-rendering: crispEdges;
 }
-.bar-label{
+.bar-hover {
+	fill: #F4A300;
+}
+.bar-label {
 	fill: #000;
-	text-anchor: middle;
-	font-size: 18px;
+	font-size: 12px;
+}
+.axis text {
+	font-size: 12px;
+}
+.axis-label {
+	font-size: 13px;
 }
 .axis path,
-.axis line{
+.axis line {
 	fill: none;
 	stroke: #000;
 	shape-rendering: crispEdges;
 }
-.gridline path,
-.gridline line{
-	fill: none;
-	stroke: #ccc;
+.gridline path {
+	stroke: none;
+}
+.gridline line {
+	stroke: #ddd;
 	shape-rendering: crispEdges;
+}
+.no-data {
+	color: #555;
+	font-size: 12pt;
 }
