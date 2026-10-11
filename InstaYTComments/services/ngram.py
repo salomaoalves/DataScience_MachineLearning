@@ -9,7 +9,6 @@ import math
 import os
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-DATASET_DIR = os.path.join(PROJECT_ROOT, "static", "dataset")
 
 # load dic in spacy session
 #!python -m spacy download pt_core_news_sm # for jupyter
@@ -44,14 +43,21 @@ def run(commen, lang):
     df_unagram = unagram(new_comen, lang)
     df_bigram = bigram(new_comen, lang)
     df_trigram = trigram(new_comen, lang)
-    df_all_ngram = all_ngram(df_unagram,df_bigram,df_trigram)
 
-    df_unagram.to_csv(os.path.join(DATASET_DIR, "unagram.csv"),index=False)
-    df_bigram.to_csv(os.path.join(DATASET_DIR, "bigram.csv"),index=False)
-    df_trigram.to_csv(os.path.join(DATASET_DIR, "trigram.csv"),index=False)
-    df_all_ngram.to_csv(os.path.join(DATASET_DIR, "allgram.csv"),index=False)
+    return {'unagram': to_chart(df_unagram, 'unagram'),
+            'bigram': to_chart(df_bigram, 'bigram'),
+            'trigram': to_chart(df_trigram, 'trigram')}
 
-    return
+
+def to_chart(df, name, max_rows=200):
+    '''Return the n-grams in a format that Jinja2 understand (list of dict), sorted by
+        frequency, with the bar size (% of the most frequent) used in the chart'''
+
+    df = df.rename(columns={name: 'ngram', f'{name}_frequency': 'frequency'})
+    df = df.sort_values(by=['frequency', 'ngram'], ascending=[False, True]).head(max_rows)
+    max_freq = df['frequency'].max() if len(df) else 1
+    return [{'ngram': n, 'frequency': int(f), 'size': round(100 * f / max_freq, 1)}
+            for n, f in zip(df['ngram'], df['frequency'])]
 
 
 def filter_type_token_bigram(ngram, lang):
@@ -150,20 +156,3 @@ def trigram(new_comen, lang):
     trigram_filter['trigram'] = trigram_filter['trigram'].map(' '.join)
 
     return trigram_filter
-
-def all_ngram(unagram_df, bigram_df, trigram_df):
-    """Returns the top n frequency of all gram's."""
-
-    unagram_df = unagram_df.reset_index(drop=True)
-    bigram_df = bigram_df.reset_index(drop=True)
-    trigram_df = trigram_df.reset_index(drop=True)
-
-    unagram_df["unagram_frequency"] = unagram_df["unagram_frequency"].astype(int)
-    bigram_df["bigram_frequency"] = bigram_df["bigram_frequency"].astype(int)
-    trigram_df["trigram_frequency"] = trigram_df["trigram_frequency"].astype(int)
-
-    frequency_df = unagram_df.join(bigram_df)
-    frequency_df = frequency_df.join(trigram_df)
-
-    frequency_df = frequency_df.astype(object).fillna(".")
-    return frequency_df
