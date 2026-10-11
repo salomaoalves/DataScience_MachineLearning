@@ -137,7 +137,7 @@ def bigram(new_comen, lang):
                                   ).sort_values(by='bigram_frequency', ascending=False)
     
     # filter
-    bigram_filter = FreqTabBigramas[FreqTabBigramas.bigram.map(lambda x: filter_type_token_bigram(x, lang))].copy()
+    bigram_filter = FreqTabBigramas[FreqTabBigramas.bigram.map(lambda x: filter_type_token_bigram(x, lang)).astype(bool)].copy()
     bigram_filter['bigram'] = bigram_filter['bigram'].map(' '.join) # ('trilha', 'sonora') -> 'trilha sonora'
     
     return bigram_filter
@@ -152,7 +152,7 @@ def trigram(new_comen, lang):
                                     columns=['trigram','trigram_frequency']
                                    ).sort_values(by='trigram_frequency',ascending=False)
     # filter
-    trigram_filter = FreqTabTrigramas[FreqTabTrigramas.trigram.map(lambda x: filter_type_token_trigram(x, lang))].copy()
+    trigram_filter = FreqTabTrigramas[FreqTabTrigramas.trigram.map(lambda x: filter_type_token_trigram(x, lang)).astype(bool)].copy()
     trigram_filter['trigram'] = trigram_filter['trigram'].map(' '.join)
 
     return trigram_filter
