@@ -1,7 +1,7 @@
 This project will create a Flask App to read words and apply NLP methods. To get the words there is two options, (1) by passing a url from a Insta post or a Youtube video, or (2) via static text, like a default one already stored or you can upload a txt file.
 
 After collecting the data, the software will create 4 products:
- - 1. Frequency - a graph over ngrams using d3, but d3.csv didn't read the local files, needs to be updated at this point
+ - 1. Frequency - a bar chart (pure HTML/CSS) of the most frequent unagrams, bigrams and trigrams, with filters for the n-gram type, sorting and number of rows
  - 2. Wordcloud - create a wordcloud using the texts
  - 3. Token Info - a table with all tokens and some more information like apparition number, TF, IDF and TF_IDF
  - 4. Sentiment analysis - do a sentiment analysis in the comments, it's not the best version, it needs some update
@@ -17,7 +17,7 @@ Folder contain the python code responsible to scrap the data, treat it and apply
 
 Inside folder **data** has some data used during sentiment analysis.
 
-*ngram.py* is a python file with functions to build the ngrams. First, tokenizes all the data, than, a unagram, a bigram, a trigram and a mix of the three. Use **NLTK** to create the bi and trigram and to help during tokenization. Save all 4 grams in **../static/dataset** folder.
+*ngram.py* is a python file with functions to build the ngrams. First, tokenizes all the data, than, a unagram, a bigram and a trigram. Use **NLTK** to create the bi and trigram and to help during tokenization. Return the n-grams sorted by frequency to be shown in the chart.
 
 *scraping.py* functions to extract/scrape the comments of the url passed - a youtube video or a instagram post. First, create a connection with the help of **Selenium**. Than, create two loops, the first one responsible to load all comments and the second to read and return the comments.
 
@@ -30,7 +30,7 @@ Inside folder **data** has some data used during sentiment analysis.
 *wordcloud.py* has the function to create the wordcloud with the comments - use **WordCloud** lib.
   
 ## static
-Folder contain static data - like the CSS files and JS scripts used in html files, a folder for images used during the code and a csv file to store the created n-grams.
+Folder contain static data - like the CSS files and JS scripts used in html files, and a folder for images used during the code.
 
 ## templates
 Folder contain the html file used to show the information - front end part.

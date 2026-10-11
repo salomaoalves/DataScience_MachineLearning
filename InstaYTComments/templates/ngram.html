@@ -1,0 +1,39 @@
+<div id="freq" style="display: block;">
+    <div id="ngram_filters">
+        <span class="filter">
+            <label><input type="radio" name="ngram_type" value="unagram" checked> Unagram</label>
+            <label><input type="radio" name="ngram_type" value="bigram"> Bigram</label>
+            <label><input type="radio" name="ngram_type" value="trigram"> Trigram</label>
+        </span>
+        <span class="filter">
+            <label>Sort:
+                <select id="ngram_sort">
+                    <option value="desc" selected>Most frequent</option>
+                    <option value="asc">Least frequent</option>
+                </select>
+            </label>
+        </span>
+        <span class="filter">
+            <label>Rows: <input type="number" id="ngram_rows" value="15" min="1" max="200"></label>
+        </span>
+    </div>
+
+    <div id="ngram_chart">
+        {% for type, rows in ngrams.items() -%}
+        <div class="ngram_list" data-type="{{ type }}" style="display: none;">
+            {% for row in rows -%}
+            <div class="ngram_row" data-frequency="{{ row['frequency'] }}">
+                <span class="ngram_label">{{ row['ngram'] }}</span>
+                <span class="ngram_bar_area">
+                    <span class="ngram_bar" style="width: {{ row['size'] }}%;"></span>
+                    <span class="ngram_value">{{ row['frequency'] }}</span>
+                </span>
+            </div>
+            {% else -%}
+            <p class="no-data">No {{ type }} found in this text.</p>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <div class="ngram_axis">Frequency</div>
+    </div>
+</div>

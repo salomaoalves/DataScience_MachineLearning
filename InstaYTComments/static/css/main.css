@@ -83,40 +83,77 @@ nav {
 	background-color: #666;
 }
 
-#filters {
-	padding-left: 40px;
-    padding-right: 40px;
-    margin-left: 200px;
-	margin-right: 700px;
+#ngram_filters {
+	margin: 20px auto 10px auto;
+	padding: 10px 20px;
+	width: 760px;
 	text-align: center;
 	border: 1px solid black;
 	background-color: white;
-    font-size: 10pt;
+	font-size: 11pt;
 }
 
-#chart{
-	text-align: center;
+.filter {
+	margin: 0 15px;
+}
+
+#ngram_chart {
+	margin: 0 auto 20px auto;
+	padding: 20px 20px 10px 20px;
+	width: 760px;
 	background-color: #F5F2EB;
 	border: 1px solid #CCC;
 }
-.bar{
-	fill: #007BA7;
-	shape-rendering: crispEdges;
+
+.ngram_row {
+	display: flex;
+	align-items: center;
+	height: 28px;
 }
-.bar-label{
-	fill: #000;
-	text-anchor: middle;
-	font-size: 18px;
+
+.ngram_label {
+	width: 170px;
+	padding-right: 10px;
+	text-align: right;
+	font-size: 12px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	border-right: 1px solid #000;
+	line-height: 28px;
 }
-.axis path,
-.axis line{
-	fill: none;
-	stroke: #000;
-	shape-rendering: crispEdges;
+
+.ngram_bar_area {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	padding-right: 40px;
 }
-.gridline path,
-.gridline line{
-	fill: none;
-	stroke: #ccc;
-	shape-rendering: crispEdges;
+
+.ngram_bar {
+	display: inline-block;
+	height: 22px;
+	background-color: #007BA7;
+	transition: width 0.5s;
+}
+
+.ngram_row:hover .ngram_bar {
+	background-color: #F4A300;
+}
+
+.ngram_value {
+	margin-left: 6px;
+	font-size: 12px;
+}
+
+.ngram_axis {
+	margin-top: 8px;
+	text-align: center;
+	font-size: 13px;
+}
+
+.no-data {
+	color: #555;
+	font-size: 12pt;
+	text-align: center;
 }

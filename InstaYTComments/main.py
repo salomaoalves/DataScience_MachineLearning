@@ -46,14 +46,14 @@ def show_yt():
         url = 'https://www.' + url
 
     lista_commen = yt_scrap(url,n)
-    runGRAM(lista_commen, lang)
+    ngrams = runGRAM(lista_commen, lang)
     dic_sentiment = runSentiment(lista_commen, lang)
     cloud_path = runWordCloud(lista_commen)
     dic_tf_idf = runIDF(lista_commen, lang)
     dic_tf_idf['size'] = range(len(dic_tf_idf['Token']))
 
     return render_template('info.html', logo_url='/static/img/logo.png', tf_idf=dic_tf_idf, 
-                           sentiment=dic_sentiment, wordcloud_path=cloud_path)
+                           sentiment=dic_sentiment, wordcloud_path=cloud_path, ngrams=ngrams)
 
 
 @app.route("/insta", methods=['GET'])
@@ -85,14 +85,14 @@ def show_insta():
         url = 'https://www.' + url
 
     lista_commen = insta_scrap(url,n)
-    runGRAM(lista_commen, lang)
+    ngrams = runGRAM(lista_commen, lang)
     dic_sentiment = runSentiment(lista_commen, lang)
     cloud_path = runWordCloud(lista_commen)
     dic_tf_idf = runIDF(lista_commen, lang)
     dic_tf_idf['size'] = range(len(dic_tf_idf['Token']))
 
     return render_template('info.html', logo_url='/static/img/logo.png', tf_idf=dic_tf_idf, 
-                           sentiment=dic_sentiment, wordcloud_path=cloud_path)
+                           sentiment=dic_sentiment, wordcloud_path=cloud_path, ngrams=ngrams)
 
 
 @app.route("/upload", methods=['GET'])
@@ -118,14 +118,14 @@ def show_upload():
     
     file_path = current_app.config['MEDIA_ROOT']+'/'+filename
     lista_commen = read_file(file_path)
-    runGRAM(lista_commen,lang)
+    ngrams = runGRAM(lista_commen,lang)
     dic_sentiment = runSentiment(lista_commen, lang)
     cloud_path = runWordCloud(lista_commen)
     dic_tf_idf = runIDF(lista_commen,lang)
     dic_tf_idf['size'] = range(len(dic_tf_idf['Token']))
 
     return render_template('info.html', logo_url='/static/img/logo.png', tf_idf=dic_tf_idf, 
-                           sentiment=dic_sentiment, wordcloud_path=cloud_path)
+                           sentiment=dic_sentiment, wordcloud_path=cloud_path, ngrams=ngrams)
 
 
 @app.route("/default", methods=['GET'])
@@ -135,11 +135,11 @@ def default():
 
     dic_tf_idf = runIDF(lista_commen,"0")
     dic_tf_idf['size'] = range(len(dic_tf_idf['Token']))
-    runGRAM(lista_commen,"0")
+    ngrams = runGRAM(lista_commen,"0")
     cloud_path = runWordCloud(lista_commen)
 
     return render_template('info_default.html', logo_url='/static/img/logo.png', 
-                           tf_idf=dic_tf_idf, wordcloud_path=cloud_path)
+                           tf_idf=dic_tf_idf, wordcloud_path=cloud_path, ngrams=ngrams)
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
